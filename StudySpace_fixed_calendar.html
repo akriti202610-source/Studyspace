@@ -1,0 +1,1191 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudySpace 💗</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      background: #f8f5ff;
+      color: #302b45;
+    }
+
+    header {
+      background: #302b45;
+      color: white;
+      padding: 24px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    header p {
+      color: #ded6ff;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      background: white;
+      padding: 18px;
+      border-radius: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 3px 12px #302b4510;
+    }
+
+    .number {
+      font-size: 25px;
+      font-weight: bold;
+      margin: 8px 0;
+    }
+
+    .pink { border-left: 5px solid #f28ccb; }
+    .purple { border-left: 5px solid #a78bfa; }
+    .green { border-left: 5px solid #8dbf91; }
+    .orange { border-left: 5px solid #fdba74; }
+    .blue { border-left: 5px solid #60a5fa; }
+
+    button {
+      border: none;
+      background: #7961cf;
+      color: white;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 15px;
+      cursor: pointer;
+      margin: 4px 4px 4px 0;
+    }
+
+    .tabs {
+      margin-bottom: 18px;
+    }
+
+    .tabs button {
+      background: white;
+      color: #302b45;
+      border: 1px solid #ded6ff;
+    }
+
+    .tabs button.active {
+      background: #7961cf;
+      color: white;
+    }
+
+    .page { display: none; }
+    .page.active { display: block; }
+
+    input, select {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0 14px;
+      border: 1px solid #ded6ff;
+      border-radius: 10px;
+      background: white;
+      font-size: 16px;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .muted {
+      color: #777187;
+      font-size: 14px;
+    }
+
+    @media (min-width: 700px) {
+      body {
+        max-width: 850px;
+        margin: auto;
+        padding: 32px;
+      }
+    }
+    
+.botany {
+  border-left: 5px solid #8DBF91;
+}
+
+.zoology {
+  border-left: 5px solid #60A5FA;
+}
+
+.timetable-day {
+  background: white;
+  border-radius: 18px;
+  padding: 22px;
+  margin: 18px 0;
+  box-shadow: 0 4px 16px rgba(60, 40, 90, 0.06);
+  border-left: 5px solid #F28CCB;
+}
+
+.timetable-day h3 {
+  margin-top: 0;
+  color: #292344;
+  font-size: 21px;
+}
+
+.timetable-day p {
+  color: #292344;
+  font-size: 17px;
+  margin: 16px 0;
+  line-height: 1.5;
+}
+
+.pomodoro-card {
+  background: white;
+  padding: 24px;
+  margin: 18px 0;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 4px 18px rgba(60, 40, 90, 0.08);
+}
+
+.pomodoro-card select {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin: 12px 0;
+  border: 1px solid #e5d9f5;
+  border-radius: 10px;
+  background: white;
+  font-size: 16px;
+}
+
+#timerDisplay {
+  font-size: 56px;
+  font-weight: bold;
+  color: #d94683;
+  margin: 20px 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.timer-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.timer-buttons button {
+  border: none;
+  border-radius: 10px;
+  padding: 12px 18px;
+  background: #fce7f3;
+  color: #831843;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.streak-card {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  margin: 18px 0;
+  box-shadow: 0 4px 18px rgba(60, 40, 90, 0.07);
+  color: #292344;
+}
+
+.streak-subtitle {
+  color: #777087;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.streak-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.streak-summary > div {
+  background: #fff3f8;
+  padding: 14px;
+  border-radius: 14px;
+  text-align: center;
+}
+
+.streak-summary span {
+  font-size: 28px;
+  font-weight: bold;
+  color: #c43d80;
+}
+
+.streak-summary p {
+  margin: 6px 0 0;
+  font-size: 13px;
+}
+
+.calendar-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 18px 0;
+}
+
+.calendar-heading h3 {
+  margin: 0;
+  font-size: 17px;
+  text-align: center;
+}
+
+.calendar-heading button {
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 10px;
+  background: #fce7f3;
+  color: #831843;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.streak-weekdays,
+.streak-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.streak-weekdays span {
+  text-align: center;
+  color: #777087;
+  font-size: 12px;
+  padding: 5px 0;
+}
+
+.streak-day {
+  aspect-ratio: 1;
+  min-width: 0;
+  border-radius: 9px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-size: 13px;
+  border: 1px solid transparent;
+}
+
+.streak-day small {
+  font-size: 9px;
+}
+
+.streak-day.empty {
+  visibility: hidden;
+}
+
+.streak-day.level-0 {
+  background: #f3f1f7;
+}
+
+.streak-day.level-1 {
+  background: #fce7f3;
+  border-color: #f9c6df;
+}
+
+.streak-day.level-2 {
+  background: #e9d5ff;
+  border-color: #d8b4fe;
+}
+
+.streak-day.level-3 {
+  background: #c4b5fd;
+  border-color: #a78bfa;
+  color: #35215f;
+  font-weight: bold;
+}
+
+.streak-day.today {
+  outline: 2px solid #c43d80;
+  outline-offset: 1px;
+}
+
+.streak-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+  font-size: 11px;
+  color: #777087;
+}
+
+.streak-legend span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.streak-legend i {
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.streak-legend .level-0 { background: #f3f1f7; }
+.streak-legend .level-1 { background: #fce7f3; }
+.streak-legend .level-2 { background: #e9d5ff; }
+.streak-legend .level-3 { background: #c4b5fd; }
+
+.streak-note {
+  font-size: 13px;
+  color: #777087;
+  margin-top: 16px;
+  line-height: 1.5;
+}
+
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>StudySpace ✨</h1>
+    <p>Your study life, organised.</p>
+    <strong>Knowledge cancels fear.</strong>
+  </header>
+
+  <nav class="tabs">
+    <button class="active" onclick="showPage('dashboard', this)">Dashboard</button>
+    <button onclick="showPage('timetable', this)">Timetable</button>
+    <button onclick="showPage('log', this)">Study Log</button>
+    <button onclick="showPage('analytics', this)">Analytics</button>
+  </nav>
+
+  <main>
+    <section id="dashboard" class="page active">
+      <h2>dashboard 🌷</h2>
+
+      <div class="stats">
+        <div class="card pink">
+          <div>Today's study</div>
+          <div class="number" id="todayTotal">0h 0m</div>
+        </div>
+
+        <div class="card purple">
+          <div>Daily goal</div>
+          <div class="number">10 hours</div>
+        </div>
+
+        <div class="card green">
+          <div>This week</div>
+          <div class="number" id="weekTotal">0h 0m</div>
+        </div>
+
+        <div class="card orange">
+          <div>This month</div>
+          <div class="number" id="monthTotal">0h 0m</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Today's progress</h3>
+        <p id="progressText">0% of daily goal</p>
+        <progress id="progressBar" value="0" max="600"
+          style="width:100%;height:18px"></progress>
+      </div>
+
+      
+<div class="streak-card">
+  <h2>🔥Study Streak</h2>
+  <p class="streak-subtitle">
+    Every focused minute counts. Keep showing up!
+  </p>
+
+  <div class="streak-summary">
+    <div>
+      <span id="streakCount">0</span>
+      <p>Day streak 🔥</p>
+    </div>
+    <div>
+      <span id="streakMonthHours">0</span>
+      <p>Hours this month 📚</p>
+    </div>
+  </div>
+
+  <div class="calendar-heading">
+    <button type="button" id="prevStreakMonth"
+      aria-label="Previous month">‹</button>
+    <h3 id="streakMonthLabel">Month Year</h3>
+    <button type="button" id="nextStreakMonth"
+      aria-label="Next month">›</button>
+  </div>
+
+  <div class="streak-weekdays">
+    <span>Mon</span>
+    <span>Tue</span>
+    <span>Wed</span>
+    <span>Thu</span>
+    <span>Fri</span>
+    <span>Sat</span>
+    <span>Sun</span>
+  </div>
+
+  <div id="streakCalendar" class="streak-calendar"></div>
+
+  <div class="streak-legend">
+    <span><i class="level-0"></i> No log</span>
+    <span><i class="level-1"></i> Light</span>
+    <span><i class="level-2"></i> Good</span>
+    <span><i class="level-3"></i> Lots</span>
+  </div>
+
+  <p id="streakNote" class="streak-note">
+    Log a study session to light up your calendar ✨
+  </p>
+</div>
+
+      
+<div class="pomodoro-card">
+  <h2>🍅 Focus Room</h2>
+  <p id="timerMode">Ready to focus?</p>
+
+  <label for="timerSubject">What are you studying?</label>
+  <select id="timerSubject">
+    <option>Physics</option>
+    <option>Chemistry</option>
+    <option>Botany</option>
+    <option>Zoology</option>
+    <option>English</option>
+    <option>Physical Education</option>
+  </select>
+
+  <div id="timerDisplay">50:00</div>
+
+  <div class="timer-buttons">
+    <button type="button" id="startTimer">Start</button>
+    <button type="button" id="pauseTimer">Pause</button>
+    <button type="button" id="resetTimer">Reset</button>
+  </div>
+
+    <p id="timerMessage">50 min focus · 10 min break</p>
+  </div>
+
+
+      <button onclick="showPage('log', document.querySelectorAll('.tabs button')[2])">
+        + Log a study session
+      </button>
+    </section>
+
+    <section id="timetable" class="page">
+      
+<h2>📅Timetable</h2>
+
+<div class="timetable-day">
+  <h3>🌸 Monday</h3>
+  <p><b>Morning self-study</b></p>
+  <p>4–5 AM: Physics</p>
+  <p>5–6 AM: Chemistry</p>
+  <p><b>School · 6 AM–3 PM</b></p>
+  <p>P1: English</p>
+  <p>P2: Chemistry</p>
+  <p>P3: Physics</p>
+  <p>P4: Biology</p>
+  <p>P5: Physical Education</p>
+  <p>P6: Biology</p>
+  <p>P7: Physical Education</p>
+  <p>P8: Biology</p>
+  <p><b>Coaching · 4–8 PM</b></p>
+  <p>4–6 PM: Botany</p>
+  <p>6:15–8 PM: Chemistry</p>
+  <p><b>Night self-study · 8–10 PM</b></p>
+  <p>8–9 PM: Physics</p>
+  <p>9–10 PM: Chemistry</p>
+</div>
+
+<div class="timetable-day">
+  <h3>💜 Tuesday</h3>
+  <p><b>Morning self-study</b></p>
+  <p>4–5 AM: Chemistry</p>
+  <p>5–6 AM: Biology</p>
+  <p><b>School · 6 AM–3 PM</b></p>
+  <p>P1: English</p>
+  <p>P2: Chemistry</p>
+  <p>P3: Physics</p>
+  <p>P4: Biology</p>
+  <p>P5: Physical Education</p>
+  <p>P6: Chemistry</p>
+  <p>P7: Physical Education</p>
+  <p>P8: Chemistry</p>
+  <p><b>Coaching · 4–8 PM</b></p>
+  <p>4–6 PM: Botany</p>
+  <p>6:15–8 PM: Chemistry</p>
+  <p><b>Night self-study</b></p>
+  <p>8–9 PM: Chemistry</p>
+  <p>9–10 PM: Biology</p>
+</div>
+
+<div class="timetable-day">
+  <h3>🌿 Wednesday</h3>
+  <p><b>Morning self-study</b></p>
+  <p>4–5 AM: Biology</p>
+  <p>5–6 AM: Physics</p>
+  <p><b>School · 6 AM–3 PM</b></p>
+  <p>P1: English</p>
+  <p>P2: Chemistry</p>
+  <p>P3: Physics</p>
+  <p>P4: Biology</p>
+  <p>P5: Physical Education</p>
+  <p>P6: Biology</p>
+  <p>P7: Yoga</p>
+  <p>P8: Library</p>
+  <p><b>Coaching · 4–8 PM</b></p>
+  <p>4–6 PM: Physics</p>
+  <p>6:15–8 PM: Chemistry</p>
+  <p><b>Night self-study</b></p>
+  <p>8–9 PM: Biology</p>
+  <p>9–10 PM: Physics</p>
+</div>
+
+<div class="timetable-day">
+  <h3>🌸 Thursday </h3>
+  <p><b>Morning self-study </b></p>
+  <p>4–5 AM: Physics</p>
+  <p>5–6 AM: Biology</p>
+  <p><b>School · 6 AM–3 PM</b></p>
+  <p>P1: English</p>
+  <p>P2: Chemistry</p>
+  <p>P3: Physics</p>
+  <p>P4: Biology</p>
+  <p>P5: Physical Education</p>
+  <p>P6: English</p>
+  <p>P7: Biology LAB</p>
+  <p>P8: Biology LAB</p>
+  <p><b>Coaching</b></p>
+  <p>4–6 PM: Physics</p>
+  <p>6:15–8 PM: Chemistry</p>
+  <p><b>Night self-study</b></p>
+  <p>8–9 PM: Physics</p>
+  <p>9–10 PM: Biology</p>
+</div>
+
+<div class="timetable-day">
+  <h3>💜 Friday</h3>
+  <p><b>Morning self-study</b></p>
+  <p>4–5 AM: Chemistry</p>
+  <p>5–6 AM: Physics</p>
+  <p><b>School · 6 AM–3 PM</b></p>
+  <p>P1: English</p>
+  <p>P2: Chemistry</p>
+  <p>P3: Physics</p>
+  <p>P4: Biology</p>
+  <p>P5: Physical Education</p>
+  <p>P6: English</p>
+  <p>P7: Physics LAB</p>
+  <p>P8: Chemsitry LAB</p>
+  <p><b>Coaching · 4–8 PM</b></p>
+  <p>4–6 PM: Physics</p>
+  <p>6:15–8 PM: Zoology</p>
+  <p><b>Night self-study</b></p>
+  <p>8–9 PM: Chemistry</p>
+  <p>9–10 PM: Physics</p>
+</div>
+
+<div class="timetable-day">
+  <h3>🌿 Saturday</h3>
+  <p><b>Morning self-study</b></p>
+  <p>4–5 AM: Biology</p>
+  <p>5–6 AM: Chemistry</p>
+  <p><b>School · 6 AM–3 PM</b></p>
+  <p>P1: English</p>
+  <p>P2: Chemistry</p>
+  <p>P3: Physics</p>
+  <p>P4: Biology</p>
+  <p>P5: Physical Education</p>
+  <p>P6: English</p>
+  <p>P7: Physics</p>
+  <p>P8: Library</p>
+  <p><b>Coaching · 4–8 PM</b></p>
+  <p>4–6 PM: Physics</p>
+  <p>6:15–8 PM: Zoology</p>
+  <p><b>Night self-study</b></p>
+  <p>8–9 PM: Biology</p>
+  <p>9–10 PM: Chemistry</p>
+</div>
+
+    </section>
+
+    <section id="log" class="page">
+      <h2>Study Log ✍️</h2>
+
+      <div class="card">
+        <form id="studyForm">
+          <label for="studyDate">Date</label>
+          <input type="date" id="studyDate" required>
+
+          <label for="subject">Subject</label>
+          <select id="subject">
+            <option>Physics</option>
+            <option>Chemistry</option>
+            <option>Zoology</option>
+            <option>Botany</option>
+            <option>English</option>
+            <option>Physical Education</option>
+          </select>
+
+          <label for="mode">Study mode</label>
+          <select id="mode">
+            <option>Self-study</option>
+            <option>School</option>
+            <option>Coaching</option>
+          </select>
+
+          <label for="duration">Duration in minutes</label>
+          <input type="number" id="duration" min="1"
+            placeholder="e.g. 60" required>
+
+          <label for="notes">What did you study?</label>
+          <input type="text" id="notes"
+            placeholder="e.g. Motion numericals">
+
+          <button type="submit">Save session 💗</button>
+        </form>
+      </div>
+
+      <h3>Recent sessions</h3>
+      <div id="history"></div>
+    </section>
+
+    <section id="analytics" class="page">
+      <h2>Analytics 📊</h2>
+      <div class="card">
+        <h3>Subject-wise study time</h3>
+        <div id="subjectStats">Log a session to see your stats.</div>
+      </div>
+      <div class="card">
+        <h3>Study mode breakdown</h3>
+        <div id="modeStats">Your school, coaching and self-study totals will appear here.</div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function showPage(pageId, button) {
+      document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+      });
+
+      document.getElementById(pageId).classList.add('active');
+
+      document.querySelectorAll('.tabs button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      button.classList.add('active');
+    }
+    
+const STORAGE_KEY = "studyspace-sessions";
+
+let sessions = JSON.parse(
+  localStorage.getItem(STORAGE_KEY) || "[]"
+);
+
+const form = document.getElementById("studyForm");
+const dateInput = document.getElementById("studyDate");
+
+dateInput.value = new Date().toLocaleDateString("en-CA");
+
+function saveSessions() {
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(sessions)
+  );
+}
+
+function formatTime(minutes) {
+  const hours = Math.floor(minutes / 60);
+  const mins = minutes % 60;
+  return `${hours}h ${mins}m`;
+}
+
+function renderSessions() {
+  const history = document.getElementById("history");
+
+  history.innerHTML = sessions.map((session, index) => `
+    <div class="card">
+      <strong>${session.subject}</strong>
+      <p>${session.date} · ${session.mode}</p>
+      <p>${formatTime(session.duration)}</p>
+      <p>${session.notes || ""}</p>
+      <button onclick="deleteSession(${index})">
+        Delete
+      </button>
+    </div>
+  `).join("") || "<p>No sessions yet. Add your first one! 🌱</p>";
+
+  updateTotals();
+}
+
+function deleteSession(index) {
+  sessions.splice(index, 1);
+  saveSessions();
+  renderSessions();
+}
+
+form.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const session = {
+    date: dateInput.value,
+    subject: document.getElementById("subject").value,
+    mode: document.getElementById("mode").value,
+    duration: Number(document.getElementById("duration").value),
+    notes: document.getElementById("notes").value.trim()
+  };
+
+  if (!session.date || session.duration <= 0) {
+    alert("Please enter a date and a valid duration!");
+    return;
+  }
+
+  sessions.unshift(session);
+  saveSessions();
+  renderSessions();
+if (typeof streakRenderCalendar === "function") {
+  streakRenderCalendar();
+}
+  form.reset();
+  dateInput.value = new Date().toLocaleDateString("en-CA");
+
+  alert("Session saved! You're doing great 💗");
+});
+
+function updateTotals() {
+  const today = dateInput.value;
+  const now = new Date(today + "T12:00:00");
+  const weekDay = (now.getDay() + 6) % 7;
+  const monday = new Date(now);
+  monday.setDate(now.getDate() - weekDay);
+
+  const sunday = new Date(monday);
+  sunday.setDate(monday.getDate() + 6);
+
+  const weekSessions = sessions.filter(s => {
+    return s.date >= monday.toLocaleDateString("en-CA")
+      && s.date <= sunday.toLocaleDateString("en-CA");
+  });
+
+  const monthSessions = sessions.filter(s =>
+    s.date.slice(0, 7) === today.slice(0, 7)
+  );
+
+  const todayMinutes = sessions
+    .filter(s => s.date === today)
+    .reduce((sum, s) => sum + s.duration, 0);
+
+  const weekMinutes = weekSessions
+    .reduce((sum, s) => sum + s.duration, 0);
+
+  const monthMinutes = monthSessions
+    .reduce((sum, s) => sum + s.duration, 0);
+
+  document.getElementById("todayTotal").textContent =
+    formatTime(todayMinutes);
+  document.getElementById("weekTotal").textContent =
+    formatTime(weekMinutes);
+  document.getElementById("monthTotal").textContent =
+    formatTime(monthMinutes);
+
+  document.getElementById("progressBar").value =
+    Math.min(todayMinutes, 600);
+
+  document.getElementById("progressText").textContent =
+    Math.round(todayMinutes / 600 * 100) +
+    "% of your daily goal";
+
+  const subjects = [
+    "Physics", "Chemistry", "zoology", "botany",
+    "English", "Physical Education"
+  ];
+
+  document.getElementById("subjectStats").innerHTML =
+    subjects.map(subject => {
+      const total = weekSessions
+        .filter(s => s.subject === subject)
+        .reduce((sum, s) => sum + s.duration, 0);
+
+      return `<p><strong>${subject}:</strong> ${formatTime(total)}</p>`;
+    }).join("");
+
+  const modes = ["School", "Coaching", "Self-study"];
+
+  document.getElementById("modeStats").innerHTML =
+    modes.map(mode => {
+      const total = weekSessions
+        .filter(s => s.mode === mode)
+        .reduce((sum, s) => sum + s.duration, 0);
+
+      return `<p><strong>${mode}:</strong> ${formatTime(total)}</p>`;
+    }).join("");
+}
+
+renderSessions();
+
+const FOCUS_TIME = 50 * 60;
+const BREAK_TIME = 10 * 60;
+
+let pomoInterval = null;
+let pomoSeconds = FOCUS_TIME;
+let pomoRunning = false;
+let pomoMode = "focus";
+let pomoLastTick = 0;
+let pomoFocusedSeconds = 0;
+
+const pomoDisplay = document.getElementById("timerDisplay");
+const pomoModeText = document.getElementById("timerMode");
+const pomoMessage = document.getElementById("timerMessage");
+const pomoStart = document.getElementById("startTimer");
+const pomoPause = document.getElementById("pauseTimer");
+const pomoReset = document.getElementById("resetTimer");
+const pomoSubject = document.getElementById("timerSubject");
+
+function pomoShowTime() {
+  const mins = Math.floor(pomoSeconds / 60);
+  const secs = pomoSeconds % 60;
+
+  pomoDisplay.textContent =
+    String(mins).padStart(2, "0") + ":" +
+    String(secs).padStart(2, "0");
+}
+
+function pomoStop() {
+  clearInterval(pomoInterval);
+  pomoInterval = null;
+  pomoRunning = false;
+}
+
+function pomoSaveFocus() {
+  const minutes = Math.floor(pomoFocusedSeconds / 60);
+
+  // Ignore sessions shorter than one full minute.
+  if (minutes < 1) {
+    pomoFocusedSeconds = 0;
+    return;
+  }
+
+  const session = {
+    date: new Date().toLocaleDateString("en-CA"),
+    subject: pomoSubject.value,
+    minutes: minutes,
+    mode: "Pomodoro",
+    notes: "Pomodoro focus session"
+  };
+
+  sessions.unshift(session);
+  saveSessions();
+  renderSessions();
+  if (typeof streakRenderCalendar === "function") {
+  streakRenderCalendar();
+}
+
+  // Refresh dashboard and analytics totals if available.
+  if (typeof updateTotals === "function") {
+    updateTotals();
+  }
+
+  pomoFocusedSeconds = 0;
+}
+
+function pomoStartTimer() {
+  if (pomoRunning) return;
+
+  pomoRunning = true;
+  pomoLastTick = Date.now();
+
+  pomoModeText.textContent =
+    pomoMode === "focus" ? "🍅 Focus time!" : "☕ Break time!";
+
+  pomoMessage.textContent =
+    pomoMode === "focus"
+      ? "You've got this! Stay focused 💗"
+      : "Relax a little. You've earned it!";
+
+  pomoInterval = setInterval(() => {
+    const now = Date.now();
+    const elapsed = Math.floor((now - pomoLastTick) / 1000);
+
+    if (elapsed < 1) return;
+
+    pomoLastTick += elapsed * 1000;
+
+    // Never count more time than remains on the timer.
+    const countedSeconds = Math.min(elapsed, pomoSeconds);
+
+    pomoSeconds -= countedSeconds;
+
+    if (pomoMode === "focus") {
+      pomoFocusedSeconds += countedSeconds;
+    }
+
+    if (pomoSeconds <= 0) {
+      pomoStop();
+      pomoSeconds = 0;
+      pomoShowTime();
+
+      if (pomoMode === "focus") {
+        pomoSaveFocus();
+
+        pomoMode = "break";
+        pomoSeconds = BREAK_TIME;
+        pomoModeText.textContent = "☕ Break time!";
+        pomoMessage.textContent =
+          "Focus session saved! Take a 10-minute break.";
+
+        alert("50 minutes complete! Study time saved 💗");
+      } else {
+        pomoMode = "focus";
+        pomoSeconds = FOCUS_TIME;
+        pomoModeText.textContent = "🍅 Ready to focus?";
+        pomoMessage.textContent =
+          "Break finished! Ready for another 50 minutes?";
+
+        alert("Break over! Ready to focus again? 🍅");
+      }
+    }
+
+    pomoShowTime();
+  }, 250);
+}
+
+pomoStart.addEventListener("click", pomoStartTimer);
+
+pomoPause.addEventListener("click", () => {
+  if (!pomoRunning) return;
+
+  pomoStop();
+  pomoMessage.textContent =
+    "Paused — press Start to continue.";
+});
+
+pomoReset.addEventListener("click", () => {
+  pomoStop();
+
+  // Save any accumulated focus time before resetting.
+  if (pomoMode === "focus" && pomoFocusedSeconds >= 60) {
+    pomoSaveFocus();
+  } else {
+    pomoFocusedSeconds = 0;
+  }
+
+  pomoMode = "focus";
+  pomoSeconds = FOCUS_TIME;
+
+  pomoModeText.textContent = "🍅 Ready to focus?";
+  pomoMessage.textContent = "50 min focus · 10 min break";
+
+  pomoShowTime();
+});
+
+pomoShowTime();
+  
+
+let streakViewDate = new Date();
+streakViewDate = new Date(
+  streakViewDate.getFullYear(),
+  streakViewDate.getMonth(),
+  1
+);
+
+function streakDateKey(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
+function streakGetSessionDate(session) {
+  const value = String(session.date || "");
+
+  // Existing StudySpace sessions normally use YYYY-MM-DD.
+  if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+    return value;
+  }
+
+  // Support dates saved in other common formats too.
+  const parsed = new Date(value);
+  if (Number.isNaN(parsed.getTime())) return null;
+
+  return streakDateKey(parsed);
+}
+
+function streakRenderCalendar() {
+  console.log("🔥 Streak calendar function is running!");
+
+  const calendar = document.getElementById("streakCalendar");
+  const monthLabel = document.getElementById("streakMonthLabel");
+  const streakCount = document.getElementById("streakCount");
+  const monthHours = document.getElementById("streakMonthHours");
+  const note = document.getElementById("streakNote");
+  const nextButton = document.getElementById("nextStreakMonth");
+
+  if (!calendar || !monthLabel) return;
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const todayKey = streakDateKey(today);
+
+  const monthStart = new Date(
+    streakViewDate.getFullYear(),
+    streakViewDate.getMonth(),
+    1
+  );
+
+  const year = monthStart.getFullYear();
+  const month = monthStart.getMonth();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  const currentMonthStart = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    1
+  );
+
+  monthLabel.textContent = monthStart.toLocaleDateString(
+    undefined,
+    { month: "long", year: "numeric" }
+  );
+
+  nextButton.disabled = monthStart >= currentMonthStart;
+  nextButton.style.opacity = nextButton.disabled ? "0.4" : "1";
+
+  // Add up the logged minutes for each day.
+  const dailyMinutes = {};
+
+  sessions.forEach(session => {
+    const key = streakGetSessionDate(session);
+    const minutes = Number(session.minutes ?? session.duration) || 0;
+
+    if (key && minutes > 0) {
+      dailyMinutes[key] = (dailyMinutes[key] || 0) + minutes;
+    }
+  });
+
+  // Calculate this month's logged study hours.
+  let totalMonthMinutes = 0;
+
+  Object.keys(dailyMinutes).forEach(key => {
+    const date = new Date(key + "T12:00:00");
+
+    if (
+      date.getFullYear() === year &&
+      date.getMonth() === month
+    ) {
+      totalMonthMinutes += dailyMinutes[key];
+    }
+  });
+
+  monthHours.textContent = (totalMonthMinutes / 60)
+    .toFixed(1)
+    .replace(/\.0$/, "");
+
+  // Count consecutive study days, starting today.
+  // If today has no study logged, check from yesterday.
+  let streak = 0;
+  const checkDate = new Date(today);
+
+  if (!dailyMinutes[todayKey]) {
+    checkDate.setDate(checkDate.getDate() - 1);
+  }
+
+  while (dailyMinutes[streakDateKey(checkDate)] > 0) {
+    streak++;
+    checkDate.setDate(checkDate.getDate() - 1);
+  }
+
+  streakCount.textContent = streak;
+
+  // Start the calendar on Monday.
+  const firstDayOffset = (monthStart.getDay() + 6) % 7;
+  let html = "";
+
+  for (let i = 0; i < firstDayOffset; i++) {
+    html += '<div class="streak-day empty"></div>';
+  }
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    const date = new Date(year, month, day);
+    const key = streakDateKey(date);
+    const minutes = dailyMinutes[key] || 0;
+    const isFuture = date > today;
+
+    let level = 0;
+
+    if (minutes >= 180) level = 3;
+    else if (minutes >= 60) level = 2;
+    else if (minutes > 0) level = 1;
+
+    const todayClass = key === todayKey ? " today" : "";
+    const title = isFuture
+      ? "Future date"
+      : `${minutes} focused minutes logged`;
+
+    html += `
+      <div class="streak-day level-${level}${todayClass}"
+           title="${title}">
+        <span>${day}</span>
+        ${minutes > 0 && !isFuture
+          ? `<small>${Math.round(minutes)}m</small>`
+          : ""}
+      </div>
+    `;
+  }
+
+  calendar.innerHTML = html;
+
+  if (streak > 0) {
+    note.textContent =
+      `You're on a ${streak}-day streak! Keep it going 💗`;
+  } else {
+    note.textContent =
+      "Log a study session today to start your streak ✨";
+  }
+}
+
+document.getElementById("prevStreakMonth")
+  .addEventListener("click", () => {
+    streakViewDate.setMonth(streakViewDate.getMonth() - 1);
+    streakRenderCalendar();
+  });
+
+document.getElementById("nextStreakMonth")
+  .addEventListener("click", () => {
+    const today = new Date();
+    const nextMonth = new Date(
+      streakViewDate.getFullYear(),
+      streakViewDate.getMonth() + 1,
+      1
+    );
+    const currentMonth = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      1
+    );
+
+    if (nextMonth <= currentMonth) {
+      streakViewDate = nextMonth;
+      streakRenderCalendar();
+    }
+  });
+
+// Render the calendar only after its state and button handlers exist.
+streakRenderCalendar();
+
+  </script>
+</body>
+</html>
